@@ -5,6 +5,7 @@ def encase_print(*kwargs) -> None:
     for item in kwargs:
         print(item)
     print('-----------------------------')
+
 arr = 0
 while True:
     print('''
@@ -21,64 +22,61 @@ clear/c - Clear the list
 exit/e - Exit
 ''')
     choice = input()
-    match choice:
-        case '1':
-            arr = []
-        case '2':
-            arr.append(random.randint(1000, 9999))
-        case '3':
-            extra = eval(input('Enter what to extend: '))
-            arr.extend(extra)
-        case '4':
-            item = int(input('Enter item to be removed: '))
-            index = int(input('Enter index to be inserted in: '))
-            arr.insert(index, item)
-        case '5':
-            item = int(input('Enter item to be removed: '))
-            print('''
+    if choice == '1':
+        arr = []
+    elif choice == '2':
+        arr.append(random.randint(1000, 9999))
+    elif choice == '3':
+        extra = list(input('Enter what to extend: '))
+        arr.extend(extra)
+    elif choice == '4':
+        item = int(input('Enter item to be removed: '))
+        index = int(input('Enter index to be inserted in: '))
+        arr.insert(index, item)
+    elif choice == '5':
+        item = int(input('Enter item to be removed: '))
+        print('''
 Choose:
     1) last element
     2) element at particular position
     3) the first occurrence of the element
 ''')
-            c = input()[0]
-            match c:
-                case 1:
-                    arr.pop()
-                case 2:
-                    index = int(input('Enter index: '))
-                    arr.pop(index)
-                case 3:
-                    arr.remove(item)
-                case _:
-                    print('Enter proper choice: ')
-                    continue
-        case '6':
-            encase_print(f'Biggest number: {max(arr)}', f'Smallest number: {min(arr)}')            
-        case '7':
-            dup = arr.copy()
+        c = input()[0]
+        if c == '1':
+            arr.pop()
+        elif c == '2':
+            index = int(input('Enter index: '))
+            arr.pop(index)
+        elif c == '3':
+            arr.remove(item)
+        else:
+            print('Enter proper choice: ')
+            continue
+    elif choice == '6':
+        encase_print(f'Biggest number: {max(arr)}', f'Smallest number: {min(arr)}')            
+    elif choice == '7':
+        dup = arr.copy()
+        dup.sort()
+        encase_print(f'Second largest: {dup[1]}', f'Second smallest: {dup[-2]}')
+    elif choice == '8':
+        dup = arr.copy()
+        choice = input('(a)scending or (d)escending order? ')[0].lower()
+        if choice == 'a':
             dup.sort()
-            encase_print(f'Second largest: {dup[1]}', f'Second smallest: {dup[-2]}')
-        case '8':
-            dup = arr.copy()
-            choice = input('(a)scending or (d)escending order? ')[0].lower()
-            match choice:
-                case 'a':
-                    dup.sort()
-                    encase_print(dup)
-                case 'd':
-                    dup.reverse()
-                    encase_print(dup)
-                case _:
-                    print('Enter proper choice: ')
-                    continue
-        case '9':
-            dup = arr.copy()
+            encase_print(dup)
+        elif choice == 'd':
             dup.reverse()
             encase_print(dup)
-        case 'c' | 'clear':
-            arr.clear()
-        case 'e' | 'exit':
-            exit(0)
-        case _:
-            encase_print('Enter proper choice')
+        else:
+            print('Enter proper choice: ')
+            continue
+    elif choice == '9':
+        dup = arr.copy()
+        dup.reverse()
+        encase_print(dup)
+    elif choice in ('c', 'clear'):
+        arr.clear()
+    elif choice in ('e', 'exit'):
+        exit(0)
+    else:
+        encase_print('Enter proper choice')
